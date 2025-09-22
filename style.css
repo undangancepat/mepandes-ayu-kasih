@@ -1,0 +1,393 @@
+html, body { overflow-x: clip; } /* pakai clip; kalau perlu fallback pakai hidden */
+
+/* ===== Reset & Base ===== */
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root{
+  --gold: #b08a55;       /* aksen emas elegan */
+  --teal: #18373F;       /* latar teal gelap */
+  --ink : #F4F4F2;       /* teks terang */
+  --ink-soft: #e9e9e8;
+}
+
+/* Default: semua teks pakai Lora dan normal case */
+body{
+  font-family: 'Lora', serif;
+  color: var(--ink);
+  background: var(--teal);
+  line-height: 1.75;
+  text-align: center;
+  text-transform: none;
+}
+
+/* ===== Util ===== */
+.sr-only{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); border:0;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px 16px 64px;
+  background: var(--teal);
+  isolation: isolate; /* for overlay effects */
+}
+.hero .overlay{
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 500px at -10% -20%, rgba(176,138,85,.18), transparent 60%),
+    radial-gradient(800px 440px at 110% 120%, rgba(176,138,85,.16), transparent 60%),
+    rgba(0,0,0,.18);
+  /* NEW: subtle breathing glow */
+  animation: overlayGlow 12s ease-in-out infinite alternate;
+}
+.hero .content{ position: relative; z-index: 1; max-width: 960px; }
+
+/* Baris atas (boleh kapital) */
+.invite-top{
+  font-family: 'Lora', serif;
+  font-size: 14px; letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: .95; margin-bottom: 18px;
+  /* NEW: entrance */
+  animation: fadeUp .9s ease .15s both;
+}
+
+/* Aksen kaligrafi */
+.subtitle{
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(22px, 3.4vw, 30px);
+  color: var(--gold);
+  margin-bottom: 6px;
+  text-transform: none;
+  /* NEW: soft float */
+  animation: floatSoft 8s ease-in-out infinite;
+}
+
+/* Judul utama: Cinzel + uppercase */
+.title-main{
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: clamp(42px, 6.6vw, 80px);
+  color: var(--gold);
+  margin: 8px 0 16px;
+  text-transform: uppercase;
+  /* NEW: pop-in + shine */
+  position: relative;
+  animation: titlePop .9s cubic-bezier(.2,.8,.2,1) .2s both;
+}
+.title-main::after{ /* shine sweep */
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 20%, transparent 40%);
+  transform: translateX(-120%);
+  animation: shineSweep 2.4s ease .8s both;
+  pointer-events:none;
+}
+
+/* Teks lain normal */
+.date-day{ font-style: italic; margin-bottom: 4px; text-transform: none; animation: fadeUp .8s ease .35s both; }
+.date-full{ font-size: 20px; letter-spacing: .06em; margin-bottom: 18px; text-transform: none; animation: fadeUp .8s ease .45s both; }
+.address{ font-size: 16px; margin: 8px 0 26px; text-transform: none; animation: fadeUp .8s ease .55s both; }
+
+/* ===== COUNTDOWN ===== */
+.countdown{
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  margin: 10px 0 26px;
+  animation: fadeUp .8s ease .65s both;
+}
+.cd-item{
+  min-width: 86px; padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  backdrop-filter: blur(2px);
+  transform-style: preserve-3d;
+}
+.cd-item span{ display:block; font-weight: 700; font-size: 22px; }
+.cd-item small{ display:block; font-size: 12px; opacity: .95; }
+
+/* flip anim saat angka berubah */
+.cd-item .flip{
+  display:inline-block;
+  animation: flipIn .6s cubic-bezier(.2,.9,.2,1);
+  transform-origin: center bottom;
+}
+
+/* ===== Button ===== */
+.btn{
+  display: inline-block; padding: 12px 26px;
+  border-radius: 24px;
+  background: var(--gold); color: #fff;
+  text-decoration: none; font-weight: 700;
+  transition: background .25s ease, color .25s ease, transform .18s ease, box-shadow .3s ease;
+}
+.btn:hover{ background: #fff; color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(176,138,85,.3); }
+
+.btn.btn-outline{
+  background: transparent; color: var(--gold);
+  border: 2px solid var(--gold);
+}
+.btn.btn-outline:hover{ background: var(--gold); color:#fff; }
+
+/* ===== SECTION GENERIC ===== */
+.section{ padding: 84px 20px; }
+
+/* ===== CEREMONY (Rangkaian Acara) ===== */
+.ceremony{ background: var(--teal); }
+.ceremony-wrap{ max-width: 920px; margin: 0 auto 32px; padding: 0 16px; }
+
+.ceremony-heading {
+  font-family: 'Lora', serif;   /* bukan Cinzel lagi */
+  font-weight: 600;
+  font-size: clamp(22px, 4vw, 34px);
+  text-transform: none;
+  color: var(--ink);
+  margin-bottom: 18px;   /* tambahin jarak ke bawah */
+  /* NEW */
+  animation: fadeUp .8s ease .1s both;
+}
+
+.ceremony-om {
+  font-family: 'Lora', serif;   /* lebih natural, ada huruf kecil */
+  font-weight: 600;
+  font-size: clamp(20px, 3.6vw, 28px);
+  text-transform: none;
+  color: var(--gold);
+  /* NEW */
+  animation: fadeUp .8s ease .2s both;
+}
+.ceremony-sub{
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(20px, 3.6vw, 32px);
+  color: var(--gold);
+  text-transform: none;
+  margin-top: 82px;      /* jarak dari atas judul */
+  margin-bottom: 12px;   /* jarak ke bawah biar longgar */
+  /* NEW */
+  animation: fadeUp .8s ease .3s both;
+}
+.ceremony-parent{
+    margin-top: 12px;
+    margin-bottom: 82px;
+}
+.ceremony-desc{
+  max-width: 820px; margin: 0 auto 24px;
+  font-style: italic; opacity: .96;
+  line-height: 1.9;
+  text-transform: none;
+  /* NEW */
+  animation: fadeUp .8s ease .4s both;
+}
+.ceremony-block{ max-width: 720px; margin: 0 auto; }
+.ceremony-label{
+  font-style: italic; margin: 12px 0 4px; opacity: .95;
+  text-transform: none;
+}
+.ceremony-date,
+.ceremony-time{
+  color: var(--gold); font-weight: 700;
+  letter-spacing: .06em; font-size: clamp(18px, 3.6vw, 26px);
+  text-transform: none;
+}
+.ceremony-sep{
+  display:block; width:54px; height:2px; margin:14px auto;
+  background: rgba(255,255,255,.55); border-radius: 2px;
+}
+.ceremony-place{
+  color: var(--gold);
+  line-height: 1.6;
+  font-size: 16px;  
+  max-width: 820px;
+  margin: 0 auto;     /* center */
+  text-transform: none;
+}
+
+/* ===== MAP ===== */
+.map-card{
+  max-width: 900px; margin: 24px auto 0;
+  background: #fff; color:#222;
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0,0,0,.18);
+  /* NEW: reveal on scroll (class ditambah via JS) */
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.map-card.reveal-visible{
+  opacity: 1; transform: none;
+}
+.map-frame{ position:relative; width:100%; aspect-ratio:16/9; background:#eee; }
+.map-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.map-open{ position:absolute; inset:0; display:block; }
+.map-actions{ padding: 12px; background: #fff; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background:#111;
+  color: var(--ink-soft);
+  padding: 14px;       /* dikurangi dari 20px */
+  font-size: 12px;     /* dari 14px jadi 12px */
+  animation: fadeUp .8s ease .1s both;
+}
+
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 520px){
+  .countdown{ gap: 12px; }
+  .cd-item{ min-width: 78px; padding: 10px 12px; }
+}
+
+/* ====== NEW: Generic reveal utility ====== */
+.reveal{
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(6px);
+  transition: opacity .8s ease, transform .8s ease, filter .8s ease;
+}
+.reveal.reveal-visible{
+  opacity: 1; transform: none; filter: blur(0);
+}
+
+/* ====== NEW: Keyframes ====== */
+@keyframes fadeUp{
+  from{ opacity:0; transform: translateY(16px); filter: blur(6px); }
+  to  { opacity:1; transform: none; filter: blur(0); }
+}
+@keyframes titlePop{
+  from{ opacity:0; transform: translateY(14px) scale(.98); letter-spacing:.02em; }
+  to  { opacity:1; transform: none; letter-spacing: normal; }
+}
+@keyframes shineSweep{
+  to{ transform: translateX(150%); }
+}
+@keyframes floatSoft{
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(-6px); }
+  100%{ transform: translateY(0); }
+}
+@keyframes overlayGlow{
+  0%{ filter: saturate(1) brightness(1); }
+  100%{ filter: saturate(1.08) brightness(1.06); }
+}
+@keyframes flipIn{
+  0%{ transform: rotateX(90deg); opacity:.3; }
+  60%{ transform: rotateX(-10deg); opacity:1; }
+  100%{ transform: rotateX(0deg); }
+}
+
+/* ====== NEW: Motion safety ====== */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+
+/* ===== Daun mepet, responsif, ada trim offset ===== */
+
+/* Padding hero dijadikan variabel agar daun benar2 nempel ke tepi luar */
+.hero{
+  --pt: 48px;   /* padding-top hero */
+  --px: 16px;   /* padding-left/right hero */
+  --pb: 64px;   /* padding-bottom hero */
+}
+
+/* container daun (absolute di hero, di atas overlay, di bawah teks) */
+.leaf{
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.24));
+  /* ukuran responsif */
+  width: clamp(180px, 22vw, 360px);
+  aspect-ratio: 293 / 443; /* rasio gambar kamu (293x443) */
+  /* offset opsional untuk “memotong” kanvas transparan PNG */
+  --trim-x: 0px;   /* + ke kanan (left), + ke kiri (right/mirror) */
+  --trim-y: 0px;   /* + ke bawah */
+}
+
+/* gambar di dalam container */
+.leaf img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: translate(0,0);
+}
+
+/* KIRI-ATAS: kompensasi padding + bleed tipis */
+.leaf-left{
+  top: calc(-1 * var(--pt));
+  left: calc(0 * var(--px));
+}
+.leaf-left img{
+  transform: translate(calc(-1 * var(--trim-x)), calc(-1 * var(--trim-y)));
+}
+
+/* KANAN-BAWAH: kompensasi padding + mirror + bleed tipis */
+.leaf-right{
+  bottom: calc(-1 * var(--pb));
+  right:  calc(-1 * var(--px) + var(--inset-r, -64px)); 
+}
+.leaf-right img{
+  transform: translate(var(--trim-x), calc(-1 * var(--trim-y))) scaleX(-1);
+  transform-origin: center;
+}
+
+/* Animasi lembut (opsional) */
+@keyframes leafFloatL{
+  0%{ transform: translate(0,0); }
+  50%{ transform: translate(0,-6px); }
+  100%{ transform: translate(0,0); }
+}
+@keyframes leafFloatR{
+  0%{ transform: translate(0,0) scaleX(-1); }
+  50%{ transform: translate(0,6px) scaleX(-1); }
+  100%{ transform: translate(0,0) scaleX(-1); }
+}
+.leaf-left img{ animation: leafFloatL 14s ease-in-out infinite; }
+.leaf-right img{ animation: leafFloatR 16s ease-in-out infinite; }
+
+@media (max-width: 680px){
+  .hero{ --pt: 36px; --px: 12px; --pb: 48px; }
+  .leaf{ width: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .leaf-left img, .leaf-right img{ animation: none !important; }
+}
+
+/* ===== ANIMASI DAUN JATUH (pakai .leaf-drop, tidak bentrok) ===== */
+.leaf-fall{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2; /* di atas overlay (0/1) tapi di bawah .hero .content (3) */
+}
+
+.leaf-fall .leaf-drop{
+  position: absolute;
+  top: -40px;
+  width: 18px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8fb8a3, #4e6b63);
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.25));
+  animation: leaf-fall-move linear infinite;
+  will-change: transform;
+}
+
+@keyframes leaf-fall-move{
+  0%   { transform: translateY(-10vh) translateX(0) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(110vh) translateX(var(--x-move)) rotate(360deg); opacity: .6; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .leaf-fall .leaf-drop{ animation: none !important; }
+}
+
+#bg-music { display:none; }
